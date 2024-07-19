@@ -27,6 +27,7 @@ import { countOpenAIChatPromptTokens } from "./countOpenAIChatMessageTokens";
 export const CHAT_MODEL_CONTEXT_WINDOW_SIZES = {
   "gpt-4": 8192,
   "gpt-4o": 128000,
+  "gpt-4o-mini": 128000,
   "gpt-4-0314": 8192,
   "gpt-4-0613": 8192,
   "gpt-4-turbo-preview": 128000,
@@ -67,9 +68,13 @@ export function getOpenAIChatModelInformation(model: OpenAIChatModelType): {
   const [_, baseModel, ___, ____, _____] = model.split(":");
 
   if (
-    ["gpt-3.5-turbo", "gpt-3.5-turbo-0613", "gpt-4-0613", "gpt-4o"].includes(
-      baseModel
-    )
+    [
+      "gpt-3.5-turbo",
+      "gpt-3.5-turbo-0613",
+      "gpt-4-0613",
+      "gpt-4o",
+      "gpt-4o-mini",
+    ].includes(baseModel)
   ) {
     const contextWindowSize =
       CHAT_MODEL_CONTEXT_WINDOW_SIZES[
@@ -90,7 +95,8 @@ type FineTuneableOpenAIChatModelType =
   | `gpt-3.5-turbo`
   | `gpt-3.5-turbo-0613`
   | `gpt-4-0613`
-  | `gpt-4o`;
+  | `gpt-4o`
+  | `gpt-4o-mini`;
 
 type FineTunedOpenAIChatModelType =
   `ft:${FineTuneableOpenAIChatModelType}:${string}:${string}:${string}`;
